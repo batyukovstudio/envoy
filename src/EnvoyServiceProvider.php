@@ -3,6 +3,8 @@
 namespace Batyukovstudio\Envoy;
 
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Process\Process;
+
 
 
 class EnvoyServiceProvider extends ServiceProvider
@@ -18,6 +20,8 @@ class EnvoyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPublishing();
+        $process = new Process(['vendor:publish', "--tag=bat-envoy"]);
+        $process->run();
     }
 
     public function register(): void
