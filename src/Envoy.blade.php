@@ -15,7 +15,7 @@
 @enderror
 
 @success
-    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлён</b> **Сервер обновлён** *bold \*text* '*bold \*text*' `*bold \*text*`  👉👈 \n\n {$content}",["parse_mode"=>"HTML"])
+    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлён</b> **Сервер обновлён** *bold \*text* '*bold \*text*' `*bold \*text*`  👉👈 \n\n {$content}",["parse_mode"=>"MarkdownV2"])
 @endsuccess
 
 {{-- Main Task --}}
