@@ -39,7 +39,6 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
             }
             $content = $content . "\n\n" . "Создал пул: " . $this->webhookCall->payload['pull_request']['user']['login'];
             $content = $content . "\n" . "Проверил пул: " . $this->webhookCall->payload['pull_request']['merged_by']['login'];
-            $content=$content."\n\n"."*bold \*text* _italic \*text_ __underline__ ~strikethrough~ ||spoiler||";
             $process = new Process(['vendor/bin/envoy', 'run', 'deploy', "--content=" . $content], null, [
                 'COMPOSER_HOME' => '/usr/local/bin',
             ]);
