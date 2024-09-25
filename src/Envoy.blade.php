@@ -11,11 +11,11 @@
 @endsetup
 
 @error
-    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task)
+    @telegram($telegramBotToken, $telegramChatId, "🔥**Сервер обновлен**🔥 \n ". $task)
 @enderror
 
 @success
-    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлен</b> 👉👈 \n {$content}")
+    @telegram($telegramBotToken, $telegramChatId, "**Сервер обновлен** 👉👈 \n\n {$content}")
 @endsuccess
 
 {{-- Main Task --}}
