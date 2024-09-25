@@ -32,7 +32,7 @@ class EnvoyServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__ . '/Envoy.blade.php' => base_path(),
+            __DIR__ . '/Envoy.blade.php' => base_path().'/.',
         ], 'bat-envoy');
     }
 }
