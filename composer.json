@@ -1,0 +1,29 @@
+{
+    "name": "batyukovstudio/envoy",
+    "description": "Envoy Container for apiato.",
+    "version": "1.0.0-dev",
+    "keywords": [
+        "envoy",
+        "git",
+        "laravel",
+        "apiato"
+    ],
+    "authors": [
+        {
+            "name": "batyukovstudio.com",
+            "email": "batyukovstudio@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Batyukovstudio\\Envoy\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.2",
+        "laravel/framework": "^10.0",
+        "laravel/envoy": "^2.9",
+        "spatie/laravel-github-webhooks": "^1.2"
+    },
+    "minimum-stability": "dev"
+}
