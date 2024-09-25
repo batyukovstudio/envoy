@@ -1,6 +1,6 @@
 <?php
 
-namespace Batyukovstudio\EnvoySection\Envoy\Jobs;
+namespace Batyukovstudio\Envoy\EnvoySection\Envoy\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
