@@ -21,6 +21,10 @@ class EnvoyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
         ], 'bat-envoy');
+
+        $this->publishes([
+            __DIR__ . '/EnvoySection' => './app/Containers/EnvoySection',
+        ], 'bat-envoy-container');
     }
 
     public function register(): void
