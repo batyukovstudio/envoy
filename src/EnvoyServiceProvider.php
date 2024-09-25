@@ -19,7 +19,9 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->registerPublishing();
+        $this->publishes([
+            __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
+        ], 'bat-envoy');
         $process = new Process(['php','artisan','vendor:publish', "--tag=bat-envoy"]);
         $process->run();
     }
@@ -27,12 +29,5 @@ class EnvoyServiceProvider extends ServiceProvider
     public function register(): void
     {
         parent::register();
-    }
-
-    protected function registerPublishing()
-    {
-        $this->publishes([
-            __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
-        ], 'bat-envoy');
     }
 }
