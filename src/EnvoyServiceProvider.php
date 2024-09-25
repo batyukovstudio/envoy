@@ -20,7 +20,7 @@ class EnvoyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPublishing();
-        $process = new Process(['vendor:publish', "--tag=bat-envoy"]);
+        $process = new Process(['php','artisan','vendor:publish', "--tag=bat-envoy"]);
         $process->run();
     }
 
@@ -32,7 +32,7 @@ class EnvoyServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__ . '/Envoy.blade.php' => base_path().'/.',
+            __DIR__ . '/Envoy.blade.php' => './',
         ], 'bat-envoy');
     }
 }
