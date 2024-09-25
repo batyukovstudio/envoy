@@ -25,5 +25,11 @@
         "laravel/envoy": "^2.9",
         "spatie/laravel-github-webhooks": "^1.2"
     },
-    "minimum-stability": "dev"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Batyukovstudio\\Envoy\\EnvoyServiceProvider"
+            ]
+        }
+    }
 }
