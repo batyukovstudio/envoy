@@ -22,8 +22,6 @@ class EnvoyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
         ], 'bat-envoy');
-        $process = new Process(['php','artisan','vendor:publish', "--tag=bat-envoy"]);
-        $process->run();
     }
 
     public function register(): void
