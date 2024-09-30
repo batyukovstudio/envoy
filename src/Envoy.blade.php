@@ -11,7 +11,7 @@
 @endsetup
 
 @error
-    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task)
+    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task,["parse_mode"=>"HTML"])
 @enderror
 
 @success
