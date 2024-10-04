@@ -29,6 +29,7 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->loadRoutesFrom(__DIR__ .'/EnvoySection/UI/API/Routes/DeployHook.v1.php');
         parent::register();
     }
 }
