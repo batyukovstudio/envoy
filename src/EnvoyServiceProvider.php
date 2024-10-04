@@ -17,6 +17,12 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->registerPublishing();
+        $this->app->runningInConsole();
+    }
+
+    protected function registerPublishing()
+    {
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
@@ -30,7 +36,6 @@ class EnvoyServiceProvider extends ServiceProvider
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
         ], 'bat-git-hook');
         $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php');
-
     }
 
     public function register(): void
