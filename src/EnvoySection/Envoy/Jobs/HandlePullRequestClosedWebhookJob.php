@@ -28,17 +28,10 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
     {
         $branchName = $this->webhookCall->payload['pull_request']['base']['ref'] ?? null;
         if ($this->webhookCall->payload['pull_request']['merged'] &&
-            ($branchName === 'main' || $branchName === 'develop')
+            ($branchName === env('DEPLOY_GIT_BRANCH'))
         ) {
-            if (Str::position($this->webhookCall->payload['pull_request']['title'], "…") !== false) {
-                $firstTitle = Str::substr($this->webhookCall->payload['pull_request']['title'], 0, -1);
-                $secondTitle = Str::substr($this->webhookCall->payload['pull_request']['body'], 1);
-                $content = $firstTitle . $secondTitle;
-            } else {
-                $content = $this->webhookCall->payload['pull_request']['title'];
-            }
-            $content = $content . "\n\n" . "<b>Создал пул:</b> " . $this->webhookCall->payload['pull_request']['user']['login'];
-            $content = $content . "\n" . "<b>Проверил пул:</b> " . $this->webhookCall->payload['pull_request']['merged_by']['login'];
+            $content = self::getPullRequestInfo($this->webhookCall->payload);
+
             $process = new Process(['vendor/bin/envoy', 'run', 'deploy', "--content=" . $content], null, [
                 'COMPOSER_HOME' => '/usr/local/bin',
             ]);
@@ -50,5 +43,19 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
                 throw new ProcessFailedException($process);
             }
         }
+    }
+
+    public static function getPullRequestInfo(array $payload): string
+    {
+        if (Str::position($payload['pull_request']['title'], "…") !== false) {
+            $firstTitle = Str::substr($payload['pull_request']['title'], 0, -1);
+            $secondTitle = Str::substr($payload['pull_request']['body'], 1);
+            $content = $firstTitle . $secondTitle;
+        } else {
+            $content = $payload['pull_request']['title'];
+        }
+        $content = $content . "\n\n" . "<b>Создал пул:</b> " . $payload['pull_request']['user']['login'];
+        $content = $content . "\n" . "<b>Проверил пул:</b> " . $payload['pull_request']['merged_by']['login'];
+        return $content;
     }
 }
