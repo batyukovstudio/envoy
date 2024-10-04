@@ -17,10 +17,11 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
-        ], 'bat-envoy');
-
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
+            ], 'bat-envoy');
+        }
         $this->publishes([
             __DIR__ . '/EnvoySection/Envoy/Jobs/' => './app/Containers/EnvoySection/Envoy/Jobs/',
         ], 'bat-envoy-job');
