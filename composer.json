@@ -1,6 +1,7 @@
 {
     "name": "batyukovstudio/envoy",
     "description": "Envoy actions with GitHub hooks.",
+    "license": "MIT",
     "keywords": [
         "envoy",
         "git",
