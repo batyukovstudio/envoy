@@ -47,6 +47,14 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
 
     public static function getPullRequestInfo(array $payload): string
     {
+        $content = self::getTitle($payload);
+        $content = $content . "\n\n" . "<b>Создал пул:</b> " . $payload['pull_request']['user']['login'];
+        $content = $content . "\n" . "<b>Проверил пул:</b> " . $payload['pull_request']['merged_by']['login'];
+        return $content;
+    }
+
+    protected static function getTitle(array $payload): string
+    {
         if (Str::position($payload['pull_request']['title'], "…") !== false) {
             $firstTitle = Str::substr($payload['pull_request']['title'], 0, -1);
             $secondTitle = Str::substr($payload['pull_request']['body'], 1);
@@ -54,8 +62,6 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
         } else {
             $content = $payload['pull_request']['title'];
         }
-        $content = $content . "\n\n" . "<b>Создал пул:</b> " . $payload['pull_request']['user']['login'];
-        $content = $content . "\n" . "<b>Проверил пул:</b> " . $payload['pull_request']['merged_by']['login'];
         return $content;
     }
 }
