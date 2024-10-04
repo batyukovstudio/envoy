@@ -33,7 +33,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "php -r \"copy(__DIR__.'src/Envoy.blade.php', './Envoy.blade.php');\""
+            "php -r \"copy(__DIR__.'/src/Envoy.blade.php', './Envoy.blade.php');\""
         ]
     }
 }
