@@ -1,7 +1,6 @@
 {
     "name": "batyukovstudio/envoy",
-    "description": "Envoy Container for apiato.",
-    "version": "1.0.1.0",
+    "description": "Envoy actions with GitHub hooks.",
     "keywords": [
         "envoy",
         "git",
