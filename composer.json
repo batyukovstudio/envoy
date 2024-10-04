@@ -34,7 +34,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=bat-envoy --ansi --force"
+            "php -r \"copy(__DIR__.'/Envoy.blade.php', './Envoy.blade.php');\""
         ]
     }
 }
