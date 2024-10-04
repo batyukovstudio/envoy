@@ -32,7 +32,7 @@
         }
     },
     "scripts": {
-        "pre-package-update": [
+        "post-package-update": [
             "php -r \"copy(__DIR__.'/src/Envoy.blade.php', '../../../Envoy.blade.php');\""
         ]
     }
