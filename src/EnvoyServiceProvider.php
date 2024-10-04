@@ -22,8 +22,12 @@ class EnvoyServiceProvider extends ServiceProvider
         ], 'bat-envoy');
 
         $this->publishes([
-            __DIR__ . '/EnvoySection' => './app/Containers/EnvoySection',
-        ], 'bat-envoy-container');
+            __DIR__ . '/EnvoySection/Envoy/Jobs/' => './app/Containers/EnvoySection/Envoy/Jobs/',
+        ], 'bat-envoy-job');
+
+        $this->publishes([
+            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
+        ], 'bat-git-hook');
     }
 
     public function register(): void
