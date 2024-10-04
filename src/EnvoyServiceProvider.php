@@ -20,9 +20,12 @@ class EnvoyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
-            __DIR__ . '/database/migrations/' => database_path('migrations'),
             __DIR__ . '/config/' => config_path('github-webhooks.php'),
         ], 'bat-envoy');
+
+        $this->publishesMigrations([
+            __DIR__ . '/database/migrations/' => database_path('migrations'),
+        ], 'bat-envoy-migrations');
 
         $this->publishes([
             __DIR__ . '/EnvoySection/Envoy/Jobs/' => './app/Containers/EnvoySection/Envoy/Jobs/',
