@@ -16,7 +16,6 @@
     ],
     "autoload": {
         "psr-4": {
-            "Batyukovstudio\\Envoy\\": "src/Envoy.blade.php",
             "Batyukovstudio\\Envoy\\": "src/"
         }
     },
@@ -32,5 +31,10 @@
                 "Batyukovstudio\\Envoy\\EnvoyServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan vendor:publish --tag=bat-envoy\n"
+        ]
     }
 }
