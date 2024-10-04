@@ -33,11 +33,8 @@
         }
     },
     "scripts": {
-        "post-package-install": [
-            "@php artisan vendor:publish --tag=bat-envoy\n"
-        ],
-        "post-package-update": [
-            "@php artisan vendor:publish --tag=bat-envoy\n"
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=bat-envoy --ansi --force"
         ]
     }
 }
