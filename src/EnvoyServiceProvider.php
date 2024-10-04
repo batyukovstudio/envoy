@@ -5,7 +5,6 @@ namespace Batyukovstudio\Envoy;
 use Illuminate\Support\ServiceProvider;
 
 
-
 class EnvoyServiceProvider extends ServiceProvider
 {
     public array $serviceProviders = [
@@ -29,7 +28,7 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->loadRoutesFrom(__DIR__ .'/EnvoySection/UI/API/Routes/DeployHook.v1.php');
+        $this->loadRoutesFrom(__DIR__ . '/EnvoySection/UI/API/Routes/DeployHook.v1.php');
         parent::register();
     }
 }
