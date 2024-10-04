@@ -31,10 +31,5 @@
                 "Batyukovstudio\\Envoy\\EnvoyServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-package-update": [
-            "php -r \"copy(__DIR__.'/src/Envoy.blade.php', '../../../Envoy.blade.php');\""
-        ]
     }
 }

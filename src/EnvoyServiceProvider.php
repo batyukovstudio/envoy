@@ -17,24 +17,21 @@ class EnvoyServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->registerPublishing();
-        $this->app->runningInConsole();
-    }
+        $this->publishes([
+            __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
+            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
+            __DIR__ . '/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/config/' => config_path('github-webhooks.php'),
+        ], 'bat-envoy');
 
-    protected function registerPublishing()
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
-            ], 'bat-envoy');
-        }
         $this->publishes([
             __DIR__ . '/EnvoySection/Envoy/Jobs/' => './app/Containers/EnvoySection/Envoy/Jobs/',
         ], 'bat-envoy-job');
 
         $this->publishes([
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
-        ], 'bat-git-hook');
+        ], 'bat-githook_route');
+
         $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php');
     }
 
