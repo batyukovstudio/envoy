@@ -28,7 +28,7 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
     {
         $branchName = $this->webhookCall->payload['pull_request']['base']['ref'] ?? null;
         if ($this->webhookCall->payload['pull_request']['merged'] &&
-            ($branchName === env('DEPLOY_GIT_BRANCH'))
+            ($branchName === config('github-webhooks.git_branch'))
         ) {
             $content = self::getPullRequestInfo($this->webhookCall->payload);
 
