@@ -21,7 +21,7 @@
     },
     "require": {
         "php": ">=8.2",
-        "laravel/framework": "^10.0",
+        "laravel/framework": "^10.0|^11.0",
         "laravel/envoy": "^2.9",
         "spatie/laravel-github-webhooks": "^1.2"
     },
