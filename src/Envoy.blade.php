@@ -14,11 +14,11 @@
 @endsetup
 
 @error
-    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task,["parse_mode"=>"HTML"])
+    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task, ["parse_mode"=>"HTML", "message_thread_id"=>"$messageThreadId"])
 @enderror
 
 @success
-    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлён</b>   👉👈 \n\n {$content}",["parse_mode"=>"HTML"])
+    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлён</b>   👉👈 \n\n {$content}", ["parse_mode"=>"HTML", "message_thread_id"=>"$messageThreadId"])
 @endsuccess
 
 {{-- Main Task --}}
