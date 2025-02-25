@@ -17,3 +17,7 @@ TELEGRAM_CHAT_ID_FOR_ENVOY=
 GITHUB_WEBHOOK_SECRET=
 DEPLOY_GIT_BRANCH=dev
 ```
+в конфигурационный файл app добавить root_directory со значением ROOT_DIRECTORY
+```php
+'root_directory' => env('ROOT_DIRECTORY',''),
+```
