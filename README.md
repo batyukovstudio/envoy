@@ -25,3 +25,7 @@ NODE_VERSION=
 ```php
 'root_directory' => env('ROOT_DIRECTORY',''),
 ```
+в конфигурационный файл github-webhooks.php добавить git_branch со значением DEPLOY_GIT_BRANCH
+```php
+'git_branch' => env('DEPLOY_GIT_BRANCH',''),
+```
