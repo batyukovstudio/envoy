@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('gitlab_webhook_calls', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('url');
             $table->json('headers')->nullable();
             $table->text('exception')->nullable();
             $table->json('payload');
