@@ -20,8 +20,11 @@ class EnvoyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php' => './app/Containers/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php',
+            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php' => './app/Containers/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php',
             __DIR__ . '/config/github-webhooks.php' => config_path('github-webhooks.php'),
+            __DIR__ . '/config/gitlab-webhooks.php' => config_path('gitlab-webhooks.php'),
             __DIR__ . '/database/migrations/2024_09_19_164844_create_github_webhook_calls_table.php' => database_path('migrations/2024_09_19_164844_create_github_webhook_calls_table.php'),
+            __DIR__ . '/database/migrations/2025_08_25_164844_create_github_webhook_calls_table.php' => database_path('migrations/2025_08_25_164844_create_github_webhook_calls_table.php'),
         ], 'bat-envoy');
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
@@ -40,6 +43,7 @@ class EnvoyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php');
+        $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php');
         parent::register();
     }
 }
