@@ -24,7 +24,7 @@ class EnvoyServiceProvider extends ServiceProvider
             __DIR__ . '/config/github-webhooks.php' => config_path('github-webhooks.php'),
             __DIR__ . '/config/gitlab-webhooks.php' => config_path('gitlab-webhooks.php'),
             __DIR__ . '/database/migrations/2024_09_19_164844_create_github_webhook_calls_table.php' => database_path('migrations/2024_09_19_164844_create_github_webhook_calls_table.php'),
-            __DIR__ . '/database/migrations/2025_08_25_164844_create_github_webhook_calls_table.php' => database_path('migrations/2025_08_25_164844_create_github_webhook_calls_table.php'),
+            __DIR__ . '/database/migrations/2025_08_25_164844_create_gitlab_webhook_calls_table.php' => database_path('migrations/2025_08_25_164844_create_gitlab_webhook_calls_table.php'),
         ], 'bat-envoy');
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');

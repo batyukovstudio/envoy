@@ -19,6 +19,12 @@ class ProcessGitLabWebhookJob extends ProcessWebhookJob
         // Имена событий:
         // eventName() например: "Merge Request Hook" или "merge_request" (зависит от реализации в вашей модели)
         // eventActionName() например: "Merge Request Hook.merge" или "merge_request.merge"
+        \Log::info('gitlab webhook', [
+            'event'  => $this->webhookCall->eventName(),
+            'action' => $this->webhookCall->eventActionName(),
+            'jobs_keys' => array_keys(config('gitlab-webhooks.jobs', [])),
+        ]);
+
         event("gitlab-webhooks::{$this->webhookCall->eventName()}", $this->webhookCall);
         event("gitlab-webhooks::{$this->webhookCall->eventActionName()}", $this->webhookCall);
 
