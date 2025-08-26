@@ -9,7 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gitlab_webhook_calls', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+
             $table->string('name')->nullable();
             $table->string('url');
             $table->json('headers')->nullable();
