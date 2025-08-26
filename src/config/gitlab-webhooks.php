@@ -21,11 +21,7 @@ return [
      * You can use "*" to let a job handle all sent webhook types
      */
     'jobs' => [
-        'Merge Request Hook.merge' => \Batyukovstudio\Envoy\EnvoySection\Envoy\Jobs\HandleMergeRequestMergedJob::class,
-
-        // 'ping' => \App\Jobs\GitHubWebhooks\HandlePingWebhook::class,
-        // 'issues.opened' => \App\Jobs\GitHubWebhooks\HandleIssueOpenedWebhookJob::class,
-        // '*' => \App\Jobs\GitHubWebhooks\HandleAllWebhooks::class
+        '*' => \Batyukovstudio\Envoy\EnvoySection\Envoy\Jobs\HandleMergeRequestMergedJob::class,
     ],
 
     /*
