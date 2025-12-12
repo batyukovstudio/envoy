@@ -11,6 +11,8 @@ return [
      */
     'signing_secret' => env('GITHUB_WEBHOOK_SECRET'),
 
+    'git_branch' => env('DEPLOY_GIT_BRANCH',''),
+
     /*
      * You can define the job that should be run when a certain webhook hits your application
      * here.
