@@ -20,6 +20,7 @@ class EnvoyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php',
+            __DIR__ . '/EnvoySection/Envoy/Tests/' => base_path('app/Containers/EnvoySection/Envoy/Tests'),
 //            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php' => './app/Containers/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php',
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php',
 //            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php' => './app/Containers/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php',
@@ -43,14 +44,10 @@ class EnvoyServiceProvider extends ServiceProvider
 //        $this->publishes([
 //            __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => './app/Containers/EnvoySection/Envoy/UI/API/Routes',
 //        ], 'bat-githook_route');
-
-        $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php');
     }
 
     public function register(): void
     {
-        $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHook.v1.private.php');
-        $this->loadRoutesFrom(__DIR__ . '/EnvoySection/Envoy/UI/API/Routes/DeployHookGitLab.v1.private.php');
         parent::register();
     }
 }

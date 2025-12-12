@@ -11,7 +11,7 @@ php artisan migrate
 ```
 необходимые поля в .env:
 ```php
-ROOT_DIRECTORY=
+ROOT_DIRECTORY=для .env.testing нужно указывать место нахождения своего проекта
 TELEGRAM_BOT_ENVOY_TOKEN=
 TELEGRAM_CHAT_ID_FOR_ENVOY=
 TELEGRAM_THREAD_ID_FOR_ENVOY=
@@ -27,8 +27,4 @@ NODE_VERSION=
 в конфигурационный файл app добавить root_directory со значением ROOT_DIRECTORY
 ```php
 'root_directory' => env('ROOT_DIRECTORY',''),
-```
-в конфигурационный файл github-webhooks.php добавить git_branch со значением DEPLOY_GIT_BRANCH
-```php
-'git_branch' => env('DEPLOY_GIT_BRANCH',''),
 ```
