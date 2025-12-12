@@ -1,35 +1,35 @@
 {
-    "name": "batyukovstudio/envoy",
-    "description": "Envoy actions with GitHub hooks.",
-    "license": "MIT",
-    "keywords": [
-        "envoy",
-        "git",
-        "laravel",
-        "apiato"
-    ],
-    "authors": [
-        {
-            "name": "batyukovstudio.com",
-            "email": "batyukovstudio@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Batyukovstudio\\Envoy\\": "src/"
-        }
-    },
-    "require": {
-        "php": ">=8.2",
-        "laravel/framework": "^10.0|^11.0",
-        "laravel/envoy": "^2.9",
-        "spatie/laravel-github-webhooks": "^1.2"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Batyukovstudio\\Envoy\\EnvoyServiceProvider"
-            ]
-        }
+  "name": "batyukovstudio/envoy",
+  "description": "Envoy actions with GitHub hooks.",
+  "license": "MIT",
+  "keywords": [
+    "envoy",
+    "git",
+    "laravel",
+    "apiato"
+  ],
+  "authors": [
+    {
+      "name": "batyukovstudio.com",
+      "email": "batyukovstudio@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Batyukovstudio\\Envoy\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.2",
+    "laravel/framework": "^10.0|^11.0",
+    "laravel/envoy": "^2.9",
+    "spatie/laravel-github-webhooks": "^1.2"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Batyukovstudio\\Envoy\\EnvoyServiceProvider"
+      ]
+    }
+  }
 }

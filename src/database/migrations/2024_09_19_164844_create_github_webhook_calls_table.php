@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('github_webhook_calls', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -19,5 +19,10 @@ return new class extends Migration
 
             $table->timestamps();
         });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('github_webhook_calls');
     }
 };
