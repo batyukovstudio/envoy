@@ -55,7 +55,7 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
 
     protected static function getTitle(array $payload): string
     {
-        if (Str::position($payload['pull_request']['title'], "…") !== false) {
+        if (mb_strpos($payload['pull_request']['title'], "…") !== false) {
             $firstTitle = Str::substr($payload['pull_request']['title'], 0, -1);
             $secondTitle = Str::substr($payload['pull_request']['body'], 1);
             $content = $firstTitle . $secondTitle;
