@@ -41,8 +41,9 @@ class HandleMergeRequestMergedJob implements ShouldQueue
         if ($isMerged && $targetBranch === config('gitlab-webhooks.git_branch')) {
             $content = self::getMergeRequestInfo($payload);
 
+            $php = config('app.php_binary', 'php');
             $process = new Process(
-                ['vendor/bin/envoy', 'run', 'deploy', "--content={$content}"],
+                [$php, 'vendor/bin/envoy', 'run', 'deploy', "--content={$content}"],
                 null,
                 ['COMPOSER_HOME' => '/usr/local/bin']
             );
