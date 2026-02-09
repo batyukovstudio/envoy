@@ -32,11 +32,12 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
         ) {
             $content = self::getPullRequestInfo($this->webhookCall->payload);
 
-            $process = new Process(['vendor/bin/envoy', 'run', 'deploy', "--content=" . $content], null, [
-                'COMPOSER_HOME' => '/usr/local/bin',
-            ]);
-            $process->setWorkingDirectory(config('app.root_directory'));
-            $process->run();
+            $php = config('app.php_binary', 'php');
+            $process = new Process(
+                [$php, 'vendor/bin/envoy', 'run', 'deploy', "--content={$content}"],
+                null,
+                ['COMPOSER_HOME' => '/usr/local/bin']
+            );
 
             if (!$process->isSuccessful()) {
                 Log::error('Envoy ERROR: ' . $process->getOutput());
@@ -49,8 +50,7 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
     {
         $content = self::getTitle($payload);
         $content = $content . "\n\n" . "<b>Создал пул:</b> " . $payload['pull_request']['user']['login'];
-        $content = $content . "\n" . "<b>Проверил пул:</b> " . $payload['pull_request']['merged_by']['login'];
-        return $content;
+        return $content . "\n" . "<b>Проверил пул:</b> " . $payload['pull_request']['merged_by']['login'];
     }
 
     protected static function getTitle(array $payload): string

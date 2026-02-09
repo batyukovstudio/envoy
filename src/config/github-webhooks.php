@@ -10,7 +10,7 @@ return [
      * webhook configuration settings: https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks.
      */
     'signing_secret' => env('GITHUB_WEBHOOK_SECRET'),
-
+    'php_binary' => env('PHP_BINARY', 'php'),
     'git_branch' => env('DEPLOY_GIT_BRANCH',''),
 
     /*

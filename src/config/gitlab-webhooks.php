@@ -9,7 +9,7 @@ return [
      * webhook configuration settings: https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks.
      */
     'signing_secret' => env('GITLAB_WEBHOOK_SECRET'),
-
+    'php_binary' => env('PHP_BINARY', 'php'),
     'git_branch' => env('GITLAB_TARGET_BRANCH', 'main'),
     /*
      * You can define the job that should be run when a certain webhook hits your application
