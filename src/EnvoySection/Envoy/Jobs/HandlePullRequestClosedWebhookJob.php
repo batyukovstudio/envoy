@@ -39,6 +39,9 @@ class HandlePullRequestClosedWebhookJob implements ShouldQueue
                 ['COMPOSER_HOME' => '/usr/local/bin']
             );
 
+            $process->setWorkingDirectory(config('app.root_directory'));
+            $process->run();
+
             if (!$process->isSuccessful()) {
                 Log::error('Envoy ERROR: ' . $process->getOutput());
                 throw new ProcessFailedException($process);
