@@ -20,10 +20,10 @@ if (!function_exists('sendTelegramMessage')) {
             throw new RuntimeException('cURL extension is required to send Telegram notifications.');
         }
 
-        $botToken = $botToken ?: telegramRuntimeEnv('TELEGRAM_BOT_TOKEN');
-        $chatId = $chatId ?? telegramRuntimeEnv('TELEGRAM_CHAT_ID');
-        $threadId = $threadId ?? telegramRuntimeEnv('TELEGRAM_THREAD_ID', false);
-        $proxy = $proxy ?: telegramRuntimeEnv('TELEGRAM_PROXY', false);
+        $botToken = $botToken ?: telegramFirstEnv(['TELEGRAM_BOT_ENVOY_TOKEN', 'TELEGRAM_BOT_TOKEN']);
+        $chatId = $chatId ?? telegramFirstEnv(['TELEGRAM_CHAT_ID_FOR_ENVOY', 'TELEGRAM_CHAT_ID']);
+        $threadId = $threadId ?? telegramFirstEnv(['TELEGRAM_THREAD_ID_FOR_ENVOY', 'TELEGRAM_THREAD_ID'], false);
+        $proxy = $proxy ?: telegramFirstEnv(['TELEGRAM_PROXY', 'TELEGRAM_PROXY_FOR_ENVOY'], false);
 
         if (!$botToken) {
             throw new InvalidArgumentException('Missing TELEGRAM_BOT_TOKEN for Telegram notification.');
@@ -136,11 +136,34 @@ if (!function_exists('telegramDeployConfig')) {
     function telegramDeployConfig(): array
     {
         return [
-            'botToken' => (string)telegramRuntimeEnv('TELEGRAM_BOT_TOKEN'),
-            'chatId' => (string)telegramRuntimeEnv('TELEGRAM_CHAT_ID'),
-            'threadId' => telegramRuntimeEnv('TELEGRAM_THREAD_ID', false),
-            'proxy' => telegramRuntimeEnv('TELEGRAM_PROXY', false),
+            'botToken' => (string)telegramFirstEnv(['TELEGRAM_BOT_ENVOY_TOKEN', 'TELEGRAM_BOT_TOKEN']),
+            'chatId' => (string)telegramFirstEnv(['TELEGRAM_CHAT_ID_FOR_ENVOY', 'TELEGRAM_CHAT_ID']),
+            'threadId' => telegramFirstEnv(['TELEGRAM_THREAD_ID_FOR_ENVOY', 'TELEGRAM_THREAD_ID'], false),
+            'proxy' => telegramFirstEnv(['TELEGRAM_PROXY', 'TELEGRAM_PROXY_FOR_ENVOY'], false),
         ];
+    }
+}
+
+if (!function_exists('telegramFirstEnv')) {
+    /**
+     * @param array<int, string> $keys
+     */
+    function telegramFirstEnv(array $keys, bool $required = true): ?string
+    {
+        foreach ($keys as $key) {
+            $value = telegramRuntimeEnv($key, false);
+            if ($value !== null) {
+                return $value;
+            }
+        }
+
+        if ($required) {
+            throw new InvalidArgumentException(
+                'Missing required environment variable. Expected one of: ' . implode(', ', $keys)
+            );
+        }
+
+        return null;
     }
 }
 

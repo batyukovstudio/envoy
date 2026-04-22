@@ -32,9 +32,11 @@ php artisan migrate
 
 ```env
 ROOT_DIRECTORY=
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
-TELEGRAM_THREAD_ID=
+PHP_COMMAND=php
+BUILD_FRONT=true
+TELEGRAM_BOT_ENVOY_TOKEN=
+TELEGRAM_CHAT_ID_FOR_ENVOY=
+TELEGRAM_THREAD_ID_FOR_ENVOY=
 TELEGRAM_PROXY=
 GITHUB_WEBHOOK_SECRET=
 DEPLOY_GIT_BRANCH=dev
@@ -48,22 +50,28 @@ NODE_VERSION=
 
 Обязательные:
 - `ROOT_DIRECTORY`
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
+- `PHP_COMMAND` (если не указано, используется `php`)
+- `TELEGRAM_BOT_ENVOY_TOKEN`
+- `TELEGRAM_CHAT_ID_FOR_ENVOY`
 - `GITHUB_WEBHOOK_SECRET`
 - `DEPLOY_GIT_BRANCH`
-- `NODE_PACKAGE_MANAGER`
-- `NODE_VERSION`
 
 Опциональные:
-- `TELEGRAM_THREAD_ID` (для отправки в конкретный thread/topic)
+- `BUILD_FRONT` (по умолчанию `true`)
+- `TELEGRAM_THREAD_ID_FOR_ENVOY` (для отправки в конкретный thread/topic)
 - `TELEGRAM_PROXY` (если нужен прокси для Telegram Bot API)
+- `NODE_PACKAGE_MANAGER` и `NODE_VERSION` (обязательны только при `BUILD_FRONT=true`)
 
 Поддерживаемые форматы `TELEGRAM_PROXY`:
 - `http://user:pass@host:port`
 - `https://user:pass@host:port`
 - `socks5://user:pass@host:port`
 - `socks5h://user:pass@host:port`
+
+Поведение deploy:
+- `BUILD_FRONT=true` — в `deploy` story выполняется задача `build-front`.
+- `BUILD_FRONT=false` — задача `build-front` пропускается.
+- `PHP_COMMAND=php8.3` (пример) — все команды `artisan` выполняются через указанную команду PHP.
 
 Примечание: для `.env.testing` переменная `ROOT_DIRECTORY` должна указывать путь до тестируемого проекта.
 
