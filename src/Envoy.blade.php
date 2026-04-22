@@ -7,29 +7,31 @@
     require_once __DIR__ . '/deploy/telegram.php';
 
     $gitBranch=$_SERVER['DEPLOY_GIT_BRANCH'];
+    $phpCommand = $_SERVER['PHP_COMMAND'] ?? 'php';
+    $buildFront = filter_var($_SERVER['BUILD_FRONT'] ?? 'true', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    if ($buildFront === null) { $buildFront = true; }
+
     if(!($rootPath = $_SERVER['ROOT_DIRECTORY'] ?? false)) { throw new Exception('--ROOT_DIRECTORY must be specified'); }
-    if(!($nodePackageManager = $_SERVER['NODE_PACKAGE_MANAGER'] ?? 'npm')) { throw new Exception('--NODE_PACKAGE_MANAGER must be specified'); }
-    if(!($nodeVersion = $_SERVER['NODE_VERSION'] ?? '20.18.2')) { throw new Exception('--NODE_VERSION must be specified'); }
+    if ($buildFront) {
+        if(!($nodePackageManager = $_SERVER['NODE_PACKAGE_MANAGER'] ?? 'npm')) { throw new Exception('--NODE_PACKAGE_MANAGER must be specified when BUILD_FRONT=true'); }
+        if(!($nodeVersion = $_SERVER['NODE_VERSION'] ?? '20.18.2')) { throw new Exception('--NODE_VERSION must be specified when BUILD_FRONT=true'); }
+    }
 @endsetup
 
 @error
-    @php
-        try {
-            notifyDeployError((string)$task);
-        } catch (\Throwable $exception) {
-            fwrite(STDERR, '[telegram] Failed to send error notification: ' . $exception->getMessage() . PHP_EOL);
-        }
-    @endphp
+    try {
+        notifyDeployError((string) $task);
+    } catch (\Throwable $exception) {
+        fwrite(STDERR, '[telegram] Failed to send error notification: ' . $exception->getMessage() . PHP_EOL);
+    }
 @enderror
 
 @success
-    @php
-        try {
-            notifyDeploySuccess((string)$content);
-        } catch (\Throwable $exception) {
-            fwrite(STDERR, '[telegram] Failed to send success notification: ' . $exception->getMessage() . PHP_EOL);
-        }
-    @endphp
+    try {
+        notifyDeploySuccess((string) $content);
+    } catch (\Throwable $exception) {
+        fwrite(STDERR, '[telegram] Failed to send success notification: ' . $exception->getMessage() . PHP_EOL);
+    }
 @endsuccess
 
 {{-- Main Task --}}
@@ -42,7 +44,9 @@
 {{--    generate-docs--}}
     clear-cache
     update-cache
-    build-front  {{--По хорошему добавить парметр в .evv --}}
+    @if($buildFront)
+    build-front
+    @endif
 @endstory
 
 
@@ -50,12 +54,12 @@
 
 @task('run-migrates')
     cd {{ $rootPath }};
-    php artisan migrate --force
+    {{ $phpCommand }} artisan migrate --force
 @endtask
 
 @task('restart-queues')
     cd {{ $rootPath }};
-    php artisan queue:restart
+    {{ $phpCommand }} artisan queue:restart
 @endtask
 
 @task('update-code')
@@ -70,17 +74,17 @@
 
 @task('generate-docs')
     cd {{ $rootPath }};
-    php artisan swagger:generate
+    {{ $phpCommand }} artisan swagger:generate
 @endtask
 
 @task('clear-cache')
     cd {{ $rootPath }};
-    php artisan optimize:clear
+    {{ $phpCommand }} artisan optimize:clear
 @endtask
 
 @task('update-cache')
     cd {{ $rootPath }};
-    php artisan optimize
+    {{ $phpCommand }} artisan optimize
 @endtask
 
 @task('build-front')
