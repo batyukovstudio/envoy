@@ -23,7 +23,8 @@
     "php": ">=8.1",
     "laravel/framework": "^9.0|^10.0|^11.0",
     "laravel/envoy": "^2.9",
-    "spatie/laravel-github-webhooks": "^1.2"
+    "spatie/laravel-github-webhooks": "^1.2",
+    "ext-curl": "*"
   },
   "extra": {
     "laravel": {
