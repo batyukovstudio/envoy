@@ -19,6 +19,7 @@ class EnvoyServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/Envoy.blade.php' => './Envoy.blade.php',
+            __DIR__ . '/deploy/telegram.php' => base_path('deploy/telegram.php'),
             __DIR__ . '/EnvoySection/Envoy/Tests/' => base_path('app/Containers/EnvoySection/Envoy/Tests'),
             __DIR__ . '/EnvoySection/Envoy/UI/API/Routes' => base_path('app/Containers/EnvoySection/Envoy/UI/API/Routes'),
             __DIR__ . '/config/github-webhooks.php' => config_path('github-webhooks.php'),

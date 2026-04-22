@@ -1,25 +1,35 @@
 @servers(['localhost' => '127.0.0.1'])
 
-@include('vendor/autoload.php')
-
 @setup
+    require_once __DIR__ . '/vendor/autoload.php';
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
+    require_once __DIR__ . '/deploy/telegram.php';
+
     $gitBranch=$_SERVER['DEPLOY_GIT_BRANCH'];
     if(!($rootPath = $_SERVER['ROOT_DIRECTORY'] ?? false)) { throw new Exception('--ROOT_DIRECTORY must be specified'); }
-    if(!($messageThreadId = $_SERVER['TELEGRAM_THREAD_ID_FOR_ENVOY'] ?? false)) { throw new Exception('--TELEGRAM_THREAD_ID_FOR_ENVOY must be specified'); }
-    if(!($telegramBotToken = $_SERVER['TELEGRAM_BOT_ENVOY_TOKEN'] ?? false)) { throw new Exception('--TELEGRAM_BOT_ENVOY_TOKEN must be specified'); }
-    if(!($telegramChatId = $_SERVER['TELEGRAM_CHAT_ID_FOR_ENVOY'] ?? false)) { throw new Exception('--TELEGRAM_CHAT_ID_FOR_ENVOY must be specified'); }
-    if(!($nodePacakageManager = $_SERVER['NODE_PACKAGE_MANAGER'] ?? 'npm')) { throw new Exception('--NODE_PACKAGE_MANAGER must be specified'); }
+    if(!($nodePackageManager = $_SERVER['NODE_PACKAGE_MANAGER'] ?? 'npm')) { throw new Exception('--NODE_PACKAGE_MANAGER must be specified'); }
     if(!($nodeVersion = $_SERVER['NODE_VERSION'] ?? '20.18.2')) { throw new Exception('--NODE_VERSION must be specified'); }
 @endsetup
 
 @error
-    @telegram($telegramBotToken, $telegramChatId, "🔥<b>Ошибка обновления</b>🔥 \n ". $task, ["parse_mode"=>"HTML", "message_thread_id"=>"$messageThreadId"])
+    @php
+        try {
+            notifyDeployError((string)$task);
+        } catch (\Throwable $exception) {
+            fwrite(STDERR, '[telegram] Failed to send error notification: ' . $exception->getMessage() . PHP_EOL);
+        }
+    @endphp
 @enderror
 
 @success
-    @telegram($telegramBotToken, $telegramChatId, "<b>Сервер обновлён</b>   👉👈 \n\n {$content}", ["parse_mode"=>"HTML", "message_thread_id"=>"$messageThreadId"])
+    @php
+        try {
+            notifyDeploySuccess((string)$content);
+        } catch (\Throwable $exception) {
+            fwrite(STDERR, '[telegram] Failed to send success notification: ' . $exception->getMessage() . PHP_EOL);
+        }
+    @endphp
 @endsuccess
 
 {{-- Main Task --}}
@@ -79,6 +89,6 @@
                       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
                       [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
                       export PATH=$PATH:{{ $nodeVersion }}
-    {{$nodePacakageManager}} install
-    {{$nodePacakageManager}} run build
+    {{$nodePackageManager}} install
+    {{$nodePackageManager}} run build
 @endtask
